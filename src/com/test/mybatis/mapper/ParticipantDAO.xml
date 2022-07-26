@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.IParticipantDAO">
+
+	<select id="buypostPeople" resultType="com.test.mybatis.ParticipantDTO">
+		SELECT MEMBER_CODE, NICKNAME
+		FROM VIEW_BUYPOST_PARTICIPANT
+		WHERE BUYPOST_CODE = #{code}
+	</select>
+	
+	
+</mapper>

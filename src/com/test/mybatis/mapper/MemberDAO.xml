@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.IMemberDAO">
+
+	<select id="loginMember" resultType="java.lang.String">
+		SELECT MEMBER_CODE 
+		FROM MEMBER_INFO
+		WHERE ID=#{id} AND PW=#{pw}
+	</select>
+	
+	<select id="search" resultType="com.test.mybatis.MemberDTO">
+		SELECT CODE, ID, PW, NAME, NICKNAME, TEL, MEMBER_CODE
+		FROM MEMBER_INFO
+		WHERE MEMBER_CODE=#{member_code}
+	</select>
+
+	<select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNT
+		FROM PERMANENT_BAN
+		WHERE MEMBER_CODE=#{member_code}
+	</select>
+	
+	<select id="checkDuplicateId" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM MEMBER_INFO
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="checkWithdrawalId" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM WITHDRAWAL_MEMBER 
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="checkDuplicateNickName" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM MEMBER_INFO
+		WHERE NICKNAME = #{nickname}
+	</select>
+	
+	<select id="checkDuplicateTel" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM MEMBER_INFO
+		WHERE TEL = #{tel}
+	</select>
+	
+	<select id="addMember" statementType="CALLABLE">
+		{CALL PRC_MEMBER_INFO_INSERT(#{id}, #{pw}, #{name}, #{nickname, jdbcType=VARCHAR}, #{tel})}
+	</select>
+	
+	<select id="idFind" resultType="java.lang.String">
+		SELECT ID
+		FROM MEMBER_INFO
+		WHERE NAME=#{name} AND TEL=#{tel}
+	</select>	
+	
+	<select id="regFind" resultType="java.lang.String">
+		SELECT TO_CHAR(REGIST_DATETIME, 'YYYY-MM-DD')
+		FROM MEMBER
+		WHERE CODE = (SELECT MEMBER_CODE
+		              FROM MEMBER_INFO
+		              WHERE TEL = #{tel})
+	</select>	
+	
+	<select id="checkIdTel" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM MEMBER_INFO
+		WHERE ID = #{id} AND TEL = #{tel}
+	</select>
+	
+	<update id="modifyPw" >
+		UPDATE MEMBER_INFO
+		SET PW = #{pw}
+		WHERE ID = #{id}
+	</update>
+
+	
+</mapper>

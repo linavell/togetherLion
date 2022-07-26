@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.IMyArticleDAO"> 
+
+
+	<select id="buypost" resultType="com.test.mybatis.MyArticleDTO">	
+		SELECT ROW_NUMBER() OVER (ORDER BY WRITE_DATETIME) AS NUM, CODE, TITLE, WRITE_DATETIME
+		FROM VIEW_MYBUYPOST_LIST
+		ORDER BY WRITE_DATETIME DESC
+	</select>
+	
+	<select id="buypost_reply" resultType="com.test.mybatis.MyArticleDTO">
+		SELECT ROW_NUMBER() OVER (ORDER BY WRITE_DATETIME) AS NUM, CODE, CONTENT, BUYPOST_CODE, WRITE_DATETIME
+		FROM VIEW_MYBUYPOST_REPLY_LIST
+		<!-- WHERE MEMBER_CODE = ${member_code } -->
+		ORDER BY WRITE_DATETIME DESC
+	</select>
+	
+	<select id="delete" resultType="com.test.mybatis.MyArticleDTO">
+		DELETE
+		FROM BUYPOST_REPLY
+		WHERE CODE IN (#{code})
+	</select>
+
+</mapper>

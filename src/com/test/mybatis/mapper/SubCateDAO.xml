@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.ISubCateDAO">
+
+	<select id="searchByMainCateCode" resultType="com.test.mybatis.SubCateDTO">
+		SELECT CODE, NAME
+		FROM SUB_CATE
+		WHERE MAIN_CATE_CODE = #{code}
+	</select>
+	
+	<select id="searchBySubCateCode" resultType="com.test.mybatis.SubCateDTO">
+		SELECT S.CODE, S.NAME
+		FROM SUB_CATE S INNER JOIN MAIN_CATE M
+		                ON S.MAIN_CATE_CODE = M.CODE
+		WHERE M.CODE = (SELECT MAIN_CATE_CODE
+		                FROM SUB_CATE
+		                WHERE CODE = #{code})
+	</select>
+
+</mapper>

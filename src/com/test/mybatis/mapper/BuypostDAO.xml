@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.IBuypostDAO">
+
+	
+	<select id="list" resultType="com.test.mybatis.BuypostDTO">	
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y
+		FROM VIEW_BUYPOST_MAIN
+	</select>
+	
+	
+	<select id="newList" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y, WRITE_DATETIME
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(WRITE_DATETIME, 'YYYY-MM-DD HH24:MI:SS')) <= 7 ]]>
+	</select>
+	
+	<select id="newListNum" resultType="java.lang.String">
+		SELECT COUNT(*) AS COUNT
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(WRITE_DATETIME, 'YYYY-MM-DD HH24:MI:SS')) <= 7 ]]>
+	</select>
+	
+	<select id="newListCate" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y, WRITE_DATETIME
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(WRITE_DATETIME, 'YYYY-MM-DD HH24:MI:SS')) <= 7 ]]> AND MAIN_CATE_CODE = #{code}
+	</select>
+	
+	<select id="newListCateNum" resultType="java.lang.String">
+		SELECT COUNT(*) AS COUNT
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(WRITE_DATETIME, 'YYYY-MM-DD HH24:MI:SS')) <= 7 ]]> AND MAIN_CATE_CODE = #{code}
+	</select>
+
+	
+	<select id="mainCateList" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y, SUB_CATE_CODE, MAIN_CATE_CODE
+		FROM VIEW_BUYPOST_CATE
+		WHERE MAIN_CATE_CODE = #{code}
+	</select>
+	
+	<select id="mainCateListNum" resultType="java.lang.String">
+		SELECT COUNT(*) AS COUNT
+		FROM VIEW_BUYPOST_CATE
+		WHERE MAIN_CATE_CODE = #{code}
+	</select>
+	
+	<select id="subCateList" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y, SUB_CATE_CODE, MAIN_CATE_CODE
+		FROM VIEW_BUYPOST_CATE
+		WHERE SUB_CATE_CODE = #{code}
+	</select>
+	
+	<select id="subCateListNum" resultType="java.lang.String">
+		SELECT COUNT(*) AS COUNT
+		FROM VIEW_BUYPOST_CATE
+		WHERE SUB_CATE_CODE = #{code}
+	</select>
+	
+	
+	<select id="search" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, URL, MAIN_CATE_CODE, MAIN_CATE_NAME, SUB_CATE_CODE, SUB_CATE_NAME, TITLE, WRITE_DATETIME
+		        , PERSON_PRICE, MEMBER_CODE, DEADLINE, COUNT, TRADE_DATETIME, EXPIRATION_DATETIME, CONTENT
+		FROM VIEW_BUYPOST_DETAILS
+		WHERE CODE = #{code}
+	</select>
+	
+	<select id="finalList" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y, WRITE_DATETIME
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(DEADLINEDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) < 1 ]]>
+	</select>
+	
+	<select id="finalListNum" resultType="java.lang.String">
+		SELECT COUNT(*) AS COUNT
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(DEADLINEDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) < 1 ]]>
+	</select>
+	
+	<select id="finalListCate" resultType="com.test.mybatis.BuypostDTO">
+		SELECT CODE, GOODS_PHOTO_NAME, TITLE, DEADLINE, PERSON_PRICE, COUNT, REGION, LOCATION_X, LOCATION_Y, WRITE_DATETIME
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(DEADLINEDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) < 1 ]]> AND MAIN_CATE_CODE = #{code}
+	</select>
+	
+	<select id="finalListCateNum" resultType="java.lang.String">
+		SELECT COUNT(*) AS COUNT
+		FROM VIEW_BUYPOST_MAIN
+		WHERE <![CDATA[(TO_DATE(DEADLINEDATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) < 1 ]]> AND MAIN_CATE_CODE = #{code}
+	</select>
+	
+	<select id="buypostState" resultType="java.lang.String">
+		SELECT STATE
+		FROM VIEW_BUYPOST_STATE
+		WHERE CODE = #{code}
+	</select>
+	
+	<select id="memberState" resultType="java.lang.String">
+		SELECT POSITION
+		FROM VIEW_PARTI_POSITION
+		WHERE MEMBER_CODE = #{member_code} AND BUYPOST_CODE = #{code}
+	</select>
+	
+	<select id="memberWait" resultType="java.lang.String">
+		SELECT REPARTICIPATE_DATETIME
+		FROM VIEW_PARTICIPANT_WAIT
+		WHERE MEMBER_CODE = #{member_code} AND BUYPOST_CODE = #{code}
+	</select>
+	
+	<select id="buyScreenshot" resultType="java.lang.String">
+		SELECT BUY_DATETIME
+		FROM BUYPOST
+		WHERE CODE = #{CODE}
+	</select>
+	
+	
+</mapper>
