@@ -480,11 +480,32 @@ public class BuypostController
 	
 	// 공동구매 글쓰기
 	@RequestMapping(value="/buypostinsertform.lion")
-	public String InsertFormBuypost()
+	public String InsertFormBuypost(Model model)
 	{
+		IBuypostDAO buypost = sqlSession.getMapper(IBuypostDAO.class);
+		IMainCateDAO main = sqlSession.getMapper(IMainCateDAO.class);
+		
+		ArrayList<MainCateDTO> mainList = main.list();
+		
+		model.addAttribute("mainList", mainList);
 		
 		return "/WEB-INF/view/user/user_buyPostInsertForm.jsp";
 	}
+	
+	
+	// 소분류 카테고리 ajax 처리
+	@RequestMapping(value="/ajax.lion")
+	public String subCateAjax(String mainCate, Model model)
+	{
+		ISubCateDAO sub = sqlSession.getMapper(ISubCateDAO.class);
+		
+		ArrayList<SubCateDTO> subList = sub.searchByMainCateCode(mainCate);
+		
+		model.addAttribute("subList", subList);
+		
+		return "/WEB-INF/view/user/ajax.jsp";
+	}
+	
 	
 	// 지도
 	@RequestMapping(value="/map.lion")

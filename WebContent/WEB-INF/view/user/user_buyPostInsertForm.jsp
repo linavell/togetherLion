@@ -68,6 +68,7 @@ button.swal2-cancel.swal2-styled:focus {
 }
 </style>
 <script type="text/javascript">
+
 	$(function()
 	{
 		// <등록>
@@ -99,6 +100,8 @@ button.swal2-cancel.swal2-styled:focus {
 		$("#expiration_date").datepicker({
 			minDate: 0
 		});
+		
+		
 		// 모집마감일 (현재 ~ +21일)
 		$("#deadline").datepicker({
 			minDate: 0,
@@ -112,7 +115,7 @@ button.swal2-cancel.swal2-styled:focus {
 		    interval: 30,
 		    minTime: '0',
 		    maxTime: '11:00pm',
-		    defaultTime: '11',
+		    defaultTime: '9',
 		    startTime: '9:00',
 		    dynamic: false,
 		    dropdown: true,
@@ -145,6 +148,15 @@ button.swal2-cancel.swal2-styled:focus {
 			let eachPrice = Number($('input#total_price').val()) / Number($('input#goods_num').val());
 			$('span.price').text(Math.ceil(eachPrice));
 		});
+		
+		
+		// 소분류 카테고리 ajax 처리
+		$('.mainCategory').change(function()
+		{			
+			ajaxRequest();
+			
+		});
+		
 	});
 	
 	// 지도
@@ -160,7 +172,8 @@ button.swal2-cancel.swal2-styled:focus {
 	    });
 	});
 	
-	function readURL(input) {
+	function readURL(input)
+	{
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();
 	        reader.onload = function (e) {
@@ -168,7 +181,19 @@ button.swal2-cancel.swal2-styled:focus {
 	        }
 	        reader.readAsDataURL(input.files[0]);
 	    }
-	}		
+	
+	}
+	
+	
+	function ajaxRequest()
+	{
+		
+		$.post("ajax.lion", {mainCate: $("select[name=main_cate_name]").val()}, function(data)
+		{
+			$(".subCategory-select").html(data);
+		});
+	}
+	
 </script>
 </head>
 <body>
@@ -207,25 +232,15 @@ button.swal2-cancel.swal2-styled:focus {
 								<select class="form-select mainCategory-select"
 									aria-label="Default select example" name="main_cate_name">
 									<option value="0" selected>대분류 선택</option>
-									<option value="1">쌀/면/빵/떡</option>
-									<option value="2">과일/채소</option>
-									<option value="3">수산/정육/계란</option>
-									<option value="4">밀키트/간편식/냉동</option>
-									<option value="5">국/반찬</option>
-									<option value="6">간식/과자</option>
-									<option value="7">우유/유제품</option>
-									<option value="8">물/음료/커피/차</option>
-									<option value="9">양념/소스</option>
+									<c:forEach var="main" items="${mainList }">
+										<option value="${main.code }">${main.name }</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="subCategory">
 								<select class="form-select subCategory-select"
 									aria-label="Default select example" name="sub_cate_code">
 									<option value="0" selected>소분류 선택</option>
-									<option value="1">쌀</option>
-									<option value="2">면</option>
-									<option value="3">빵</option>
-									<option value="4">떡</option>
 								</select>
 							</div>
 						</div>
