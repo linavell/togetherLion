@@ -480,7 +480,7 @@ public class BuypostController
 	
 	// 공동구매 글쓰기
 	@RequestMapping(value="/buypostinsertform.lion")
-	public String InsertFormBuypost(Model model)
+	public String insertFormBuypost(Model model)
 	{
 		IBuypostDAO buypost = sqlSession.getMapper(IBuypostDAO.class);
 		IMainCateDAO main = sqlSession.getMapper(IMainCateDAO.class);
@@ -490,6 +490,17 @@ public class BuypostController
 		model.addAttribute("mainList", mainList);
 		
 		return "/WEB-INF/view/user/user_buyPostInsertForm.jsp";
+	}
+	
+	
+	// 공동구매 게시물 Insert
+	@RequestMapping(value="/buypostinsert.lion")
+	public String insertBuypost(BuypostDTO buypost)
+	{
+		IBuypostDAO dao = sqlSession.getMapper(IBuypostDAO.class);
+		
+		
+		return "";
 	}
 	
 	

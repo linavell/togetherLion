@@ -4233,6 +4233,9 @@ i.bi.bi-camera:hover {
 .nice-select.form-select.subCategory-select > ul {
     width: 100%;
 }
+select#subCateSelect {
+    display: none;
+}
 .nice-select.form-select.subCategory-select {
     left: 4.18%;
     width: 166px;

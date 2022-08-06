@@ -117,4 +117,9 @@
 	</select>
 	
 	
+	<insert id="insertBuypost">
+	
+	</insert>
+	
+	
 </mapper>

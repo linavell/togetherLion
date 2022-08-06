@@ -190,7 +190,7 @@ button.swal2-cancel.swal2-styled:focus {
 		
 		$.post("ajax.lion", {mainCate: $("select[name=main_cate_name]").val()}, function(data)
 		{
-			$(".subCategory-select").html(data);
+			$(".subCategory").html(data);
 		});
 	}
 	
@@ -239,7 +239,7 @@ button.swal2-cancel.swal2-styled:focus {
 							</div>
 							<div class="subCategory">
 								<select class="form-select subCategory-select"
-									aria-label="Default select example" name="sub_cate_code">
+									aria-label="Default select example" name="sub_cate_code" id="subCateSelect">
 									<option value="0" selected>소분류 선택</option>
 								</select>
 							</div>
