@@ -116,10 +116,24 @@
 		WHERE CODE = #{CODE}
 	</select>
 	
+	<resultMap id="test" type="hashmap"></resultMap>
 	
-	<insert id="insertBuypost">
-	
-	</insert>
+	<select id="insertBuypost" statementType="CALLABLE" parameterType="HashMap"> 
+	{ CALL PRO_BUYPOST_INSERT( 
+	      #{title,jdbcType=VARCHAR},
+	      #{url,jdbcType=VARCHAR},
+	      #{content,jdbcType=VARCHAR},
+	      #{expiration_datetime,jdbcType=DATE},
+	      #{total_price,jdbcType=NUMERIC},
+	      #{goods_num,jdbcType=NUMERIC},
+	      #{deadline,jdbcType=DATE},
+	      #{trade_datetime,jdbcType=DATE},
+	      #{member_code,jdbcType=VARCHAR},
+	      #{sub_cate_code,jdbcType=VARCHAR},
+	      #{buy_number,jdbcType=NUMERIC}
+	      )
+	} 
+	</select>
 	
 	
 </mapper>

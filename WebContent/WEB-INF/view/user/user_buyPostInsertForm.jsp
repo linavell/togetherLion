@@ -72,11 +72,12 @@ button.swal2-cancel.swal2-styled:focus {
 	$(function()
 	{
 		// <등록>
-		$(".saveBtn").click(function()
+		/* $(".saveBtn").click(function()
     	{
     		// 결제팝업
 			window.open("user_buypost_pay_popup.jsp", "_blank", "top=150,left=550,width=505,height=685");
-        });		
+        });	 */	
+        
 
 		// DatePicker
 		$.datepicker.setDefaults({
@@ -209,7 +210,7 @@ button.swal2-cancel.swal2-styled:focus {
 				<hr class="buypost-hr" />
 			</div>
 			
-			<form id="buypostInsertForm" action="/buypostinsertform.lion" enctype="multipart/form-data" method="post">
+			<form id="buypostInsertForm" action="<%=cp %>/buypostinsert.lion" method="post">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 pic-container">
 						<div class="product__details__pic">
@@ -315,11 +316,11 @@ button.swal2-cancel.swal2-styled:focus {
 						<hr />
 						<span class="buypost-detail-title">상세설명</span>
 						<div class="buypost-detail-content buypost-content-box">
-							<textarea class="form-control" id="content" rows="15"></textarea>
+							<textarea class="form-control" id="content" name="content" rows="15"></textarea>
 							<input multiple="multiple" name="files[]" type="file" class="buypost-file" style="width: 500px;"/>
 						</div>
 						<div class="btn-box">
-							<button type="button" class="btn btn-primary lion-primary-btn saveBtn">등록</button>
+							<button type="submit" class="btn btn-primary lion-primary-btn saveBtn">등록</button>
 						</div>
 					</div>
 				</div>

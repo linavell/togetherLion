@@ -68,5 +68,8 @@ public interface IBuypostDAO
 	// 해당 공동구매 게시물의 구매완료 스크린샷 업로드 여부 조회
 	public String buyScreenshot(String code);
 	
+	// 공동구매 게시물 작성
+	public String insertBuypost(BuypostDTO buypost);
+	
 	
 }

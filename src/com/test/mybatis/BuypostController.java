@@ -494,13 +494,19 @@ public class BuypostController
 	
 	
 	// 공동구매 게시물 Insert
-	@RequestMapping(value="/buypostinsert.lion")
-	public String insertBuypost(BuypostDTO buypost)
+	@RequestMapping(value="/buypostinsert.lion", method = RequestMethod.POST)
+	public String insertBuypost(BuypostDTO buypost, HttpServletRequest request)
 	{
 		IBuypostDAO dao = sqlSession.getMapper(IBuypostDAO.class);
 		
+		// 로그인 정보 얻어오기
+		HttpSession session = request.getSession();
 		
-		return "";
+		buypost.setMember_code((String)session.getAttribute("member_code"));
+		
+		dao.insertBuypost(buypost);
+		
+		return "/main.lion";
 	}
 	
 	

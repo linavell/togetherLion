@@ -7,7 +7,19 @@ public class BuypostDTO
 		, location_x, location_y, write_datetime, buy_datetime, buy_photo_path
 		, member_code, sub_cate_code, day, hour, minute, count, person_price
 		, main_cate_code, main_cate_name, sub_cate_name, state, region
-		, goods_photo_name, buy_photo_name;
+		, goods_photo_name, buy_photo_name, buy_number;
+	
+	
+
+	public String getBuy_number()
+	{
+		return buy_number;
+	}
+
+	public void setBuy_number(String buy_number)
+	{
+		this.buy_number = buy_number;
+	}
 
 	public String getGoods_num()
 	{
