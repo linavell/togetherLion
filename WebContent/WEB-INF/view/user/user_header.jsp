@@ -25,9 +25,27 @@
     <link rel="stylesheet" href="<%=cp %>/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="<%=cp %>/css/userStyle.css" type="text/css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css"> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<script type="text/javascript">
+	
+	function loginAlert()
+	{
+		Swal.fire({
+			  title: '로그인',
+			  text: '로그인 이후 이용 가능합니다.',
+			  icon: 'warning',
+			  iconColor: '#f27474',
+			  confirmButtonText: '확인',
+			}).then((result) => {
+				location.href='loginform.lion';
+			})
+	}
+	
+</script>
 </head>
 <body>	
-  
     <header class="header">
         <div class="header__top lion_header_top"></div>
         <%
@@ -135,7 +153,22 @@
 							<ul>
 								<li><a href="#"><i class="bi bi-bell"></i> <span>8</span></a></li>
 								<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-								<li><a href="<%=cp %>/buypostinsertform.lion"><i class="bi bi-pencil-square"></i></a></li>
+								<li>
+								<%
+						        if (member_code == null)
+						        {
+						        %>
+						        <a href="javascript:loginAlert();"><i class="bi bi-pencil-square"></i></a>
+						        <%
+						        }
+						        else
+						        {
+						        %>
+								<a href="<%=cp %>/buypostinsertform.lion"><i class="bi bi-pencil-square"></i></a>
+								<%
+						        }
+								%>
+								</li>
 							</ul>
 						</div>
 					</div>

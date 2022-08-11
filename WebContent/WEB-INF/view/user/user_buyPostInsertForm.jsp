@@ -106,7 +106,14 @@ button.swal2-cancel.swal2-styled:focus {
 		// 모집마감일 (현재 ~ +21일)
 		$("#deadline").datepicker({
 			minDate: 0,
-			maxDate: "+21D"
+			maxDate: "+21D",
+			onClose: function(selectedDate) 
+			{
+				$("#trade_date").datepicker( "option", "minDate", selectedDate);
+				var maxDate = new Date(selectedDate);
+				maxDate.setDate(maxDate.getDate() + 14);
+				$("#trade_date").datepicker( "option", "maxDate", maxDate);
+			}
 		});
 		
 		
@@ -240,7 +247,7 @@ button.swal2-cancel.swal2-styled:focus {
 							</div>
 							<div class="subCategory">
 								<select class="form-select subCategory-select"
-									aria-label="Default select example" name="sub_cate_code" id="subCateSelect">
+									aria-label="Default select example" id="subCateSelect">
 									<option value="0" selected>소분류 선택</option>
 								</select>
 							</div>

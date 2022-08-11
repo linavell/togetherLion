@@ -28,12 +28,21 @@ public class BuypostController
 	
 	// 메인 페이지
 	@RequestMapping(value="/main.lion")	
-	public String userMain(Model model)
+	public String userMain(Model model, HttpServletRequest request)
 	{
 		IBuypostDAO dao = sqlSession.getMapper(IBuypostDAO.class);
 		
 		ArrayList<BuypostDTO> list = dao.list();
 		
+		// 로그인 정보 얻어오기
+		HttpSession session = request.getSession();
+			
+		Boolean loginState;
+		
+		if (session.getAttribute("member_code") == null)
+			loginState = false;
+		else
+			loginState = true;
 		
 		// 남은 일, 시, 분 구하기 ---------------------------------------------------------------------------------------
 		for (BuypostDTO dto : list)
@@ -68,6 +77,7 @@ public class BuypostController
 		// --------------------------------------------------------------------------------------- 남은 일, 시, 분 구하기 
 		
 		model.addAttribute("list", list);
+		model.addAttribute("loginState", loginState);
 		
 		return "/WEB-INF/view/user/user_main.jsp";
 	}
