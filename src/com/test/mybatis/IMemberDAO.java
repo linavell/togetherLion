@@ -38,4 +38,7 @@ public interface IMemberDAO
 	
 	// 비밀번호 수정
 	public void modifyPw(MemberDTO member);
+	
+	// 해당 회원의 포인트 조회
+	public int checkPoint(String member_code);
 }

@@ -143,10 +143,16 @@ button.swal2-cancel.swal2-styled:focus {
  
 	<div class="report-container">
 		<div class="report-title">
-			<!-- buyPostInsertForm 인 경우 -->
-			<h2 class="hostMsg">공동구매 진행 결제창</h2>
-			<!-- buyPostArticle 인 경우 -->
-			<h2 class="participantMsg">공동구매 참여 결제창</h2>
+			<c:choose>
+			<%-- buyPostInsertForm 인 경우 --%>
+			<c:when test="${state == 'host' }">
+				<h2 class="hostMsg">공동구매 진행 결제창</h2>
+			</c:when>
+			<%-- buyPostArticle 인 경우 --%>
+			<c:otherwise>
+				<h2 class="participantMsg">공동구매 참여 결제창</h2>
+			</c:otherwise>
+			</c:choose>
 			<hr class="report-line"/>
 		</div>
 		
@@ -165,15 +171,15 @@ button.swal2-cancel.swal2-styled:focus {
 					</tr>
 					<tr>
 						<th>구매 수량</th>
-						<td class="number">2</td>
+						<td class="number">${buypost.buy_number }</td>
 					</tr>
 					<tr>
 						<th>잔여 포인트</th>
-						<td class="number">27,000</td>
+						<td class="number">${point }</td>
 					</tr>
 					<tr>
 						<th>결제 포인트</th>
-						<td class="number">3,600</td>
+						<td class="number">${price }</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="notice">

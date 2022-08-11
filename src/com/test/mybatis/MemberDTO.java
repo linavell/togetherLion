@@ -3,7 +3,7 @@ package com.test.mybatis;
 public class MemberDTO
 {
 	private String code, id, pw, name, nickname, tel
-				 , profile_path, member_code, regist_datetime;
+				 , profile_path, member_code, regist_datetime, point;
 	// 목록 변수 
 	private String num;
 	
@@ -11,6 +11,18 @@ public class MemberDTO
     // 신고횟수, 휴면여부, 영구정지시작일, 휴면전환일, 휴면경과일, 탈퇴일
     private String reported_count, dormant, start_datetime, change_sleep, sleep_date, datetime;
 	
+    
+    
+	public String getPoint()
+	{
+		return point;
+	}
+
+	public void setPoint(String point)
+	{
+		this.point = point;
+	}
+
 	public String getStart_datetime()
 	{
 		return start_datetime;

@@ -75,6 +75,12 @@
 		SET PW = #{pw}
 		WHERE ID = #{id}
 	</update>
+	
+	<select id="checkPoint" resultType="java.lang.Integer">
+		SELECT POINT
+		FROM VIEW_POINT
+		WHERE CODE = #{member_code}
+	</select>
 
 	
 </mapper>

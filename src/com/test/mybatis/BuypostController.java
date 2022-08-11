@@ -519,6 +519,43 @@ public class BuypostController
 		return "/main.lion";
 	}
 	
+	// 공동구매 게시물 작성 시 포인트 결제
+	@RequestMapping(value="/buypostinsertpay.lion")
+	public String payPoint(BuypostDTO buypost, HttpServletRequest request, Model model)
+	{
+		
+		IMemberDAO member = sqlSession.getMapper(IMemberDAO.class);
+		
+		// 로그인 정보 얻어오기
+		HttpSession session = request.getSession();
+		
+		// 포인트 조회
+		int point = member.checkPoint((String)session.getAttribute("member_code"));
+		
+		
+		System.out.println(buypost.getTotal_price());
+		System.out.println(buypost.getGoods_num());
+		System.out.println(buypost.getPerson_price());
+		
+		// 1인당 가격 계산
+		int total_price = Integer.parseInt(buypost.getTotal_price());
+		int goods_num = Integer.parseInt(buypost.getGoods_num());
+		int person_price = total_price / goods_num;						// 어차피 int 로 하면 절삭
+		
+		buypost.setPerson_price(Integer.toString(person_price));
+		
+		// 결제금액
+		int price = Integer.parseInt(buypost.getBuy_number()) * Integer.parseInt(buypost.getPerson_price());
+		
+		model.addAttribute("state", "host");
+		model.addAttribute("point", point);
+		model.addAttribute("price", price);
+		model.addAttribute("buypost", buypost);
+		
+		return "/WEB-INF/view/user/user_buypost_pay_popup.jsp";
+	}
+	
+	
 	
 	// 소분류 카테고리 ajax 처리
 	@RequestMapping(value="/ajax.lion")

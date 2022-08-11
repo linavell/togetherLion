@@ -71,12 +71,12 @@ button.swal2-cancel.swal2-styled:focus {
 
 	$(function()
 	{
-		// <등록>
-		/* $(".saveBtn").click(function()
+		//<등록>
+		<%-- $(".saveBtn").click(function()
     	{
     		// 결제팝업
-			window.open("user_buypost_pay_popup.jsp", "_blank", "top=150,left=550,width=505,height=685");
-        });	 */	
+			window.open("<%=cp%>/buypostinsertpay.lion", "_blank", "top=150,left=550,width=505,height=600");
+        }); --%>
         
 
 		// DatePicker
@@ -217,7 +217,8 @@ button.swal2-cancel.swal2-styled:focus {
 				<hr class="buypost-hr" />
 			</div>
 			
-			<form id="buypostInsertForm" action="<%=cp %>/buypostinsert.lion" method="post">
+			<form id="buypostInsertForm" action="<%=cp %>/buypostinsertpay.lion" target="pay" method="post" onsubmit="window.open('<%=cp %>/buypostinsertpay.lion'
+					, 'pay', 'width=505, height=600, resizeable');">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 pic-container">
 						<div class="product__details__pic">
