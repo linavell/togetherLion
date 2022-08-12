@@ -218,7 +218,7 @@ button.swal2-cancel.swal2-styled:focus {
 			</div>
 			
 			<form id="buypostInsertForm" action="<%=cp %>/buypostinsertpay.lion" target="pay" method="post" onsubmit="window.open('<%=cp %>/buypostinsertpay.lion'
-					, 'pay', 'width=505, height=600, resizeable');">
+					, 'pay', 'width=505, height=550, resizeable');">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 pic-container">
 						<div class="product__details__pic">

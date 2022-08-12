@@ -162,11 +162,16 @@ button.swal2-cancel.swal2-styled:focus {
 				<tbody>
 					<tr>
 						<th colspan="2">
-							<!-- buyPostInsertForm 인 경우 -->
+						<c:choose>
+						<%-- buyPostInsertForm 인 경우 --%>
+						<c:when test="${state == 'host' }">
 							<h4 class="hostMsg">포인트 결제 후, 공동구매 진행이 시작됩니다.</h4>
-							<!-- buyPostArticle 인 경우 -->
+						</c:when>
+						<%-- buyPostArticle 인 경우 --%>
+						<c:otherwise>
 							<h4 class="participantMsg">포인트 결제 후, 공동구매 참여가 완료됩니다.</h4>
-						
+						</c:otherwise>
+						</c:choose>						
 						</th>
 					</tr>
 					<tr>
@@ -183,13 +188,19 @@ button.swal2-cancel.swal2-styled:focus {
 					</tr>
 					<tr>
 						<td colspan="2" class="notice">
-							<!-- buyPostInsertForm 인 경우 -->
-							<span class="payNotice hostMsg">* 게시물 수정 시, 참여자들은 대기 상태로 전환됩니다.</span><br />
-							<span class="payNotice hostMsg">* 진행 취소 시, 포인트는 환불 처리됩니다.</span><br />
-							<span class="payNotice hostMsg">* 공동구매 마감 24시간 전에는 수정 및 취소 불가능합니다.</span>
-							<!-- buyPostArticle 인 경우 -->
-							<span class="payNotice participantMsg">* 참여 취소 시, 포인트는 환불 처리됩니다.</span><br />
-							<span class="payNotice participantMsg">* 공동구매 마감 24시간 전에는 취소 불가능합니다.</span>
+							<c:choose>
+							<%-- buyPostInsertForm 인 경우 --%>
+							<c:when test="${state == 'host' }">
+								<span class="payNotice hostMsg">* 게시물 수정 시, 참여자들은 대기 상태로 전환됩니다.</span><br />
+								<span class="payNotice hostMsg">* 진행 취소 시, 포인트는 환불 처리됩니다.</span><br />
+								<span class="payNotice hostMsg">* 공동구매 마감 24시간 전에는 수정 및 취소 불가능합니다.</span>
+							</c:when>
+							<%-- buyPostArticle 인 경우 --%>
+							<c:otherwise>
+								<span class="payNotice participantMsg">* 참여 취소 시, 포인트는 환불 처리됩니다.</span><br />
+								<span class="payNotice participantMsg">* 공동구매 마감 24시간 전에는 취소 불가능합니다.</span>
+							</c:otherwise>
+							</c:choose>						
 						</td>
 					</tr>
 				</tbody>
@@ -197,15 +208,18 @@ button.swal2-cancel.swal2-styled:focus {
 			
 			
 			<!-- if, 잔여포인트 < 결제포인트 -->
-			<!-- 
-			<button type="button" class="btn btn-primary lion-primary-btn popupBtn buypostPayBtn">결제하기</button>
-			 -->
-			<!-- else, 잔여포인트 >= 결제포인트 -->
-			<button type="button" class="btn btn-primary lion-primary-btn popupBtn linkPayToChargeBtn"
-			onclick="javascript:charge()">
-				포인트가 부족합니다. <br />
-				포인트 충전하러 가기 Click!				
-			</button>
+			<c:choose>
+			<c:when test="${price <= point }">
+				<button type="button" class="btn btn-primary lion-primary-btn popupBtn buypostPayBtn">결제하기</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-primary lion-primary-btn popupBtn linkPayToChargeBtn"
+				onclick="javascript:charge()">
+					포인트가 부족합니다. <br />
+					포인트 충전하러 가기 Click!				
+				</button>
+			</c:otherwise>
+			</c:choose>			
 		</form>
 		<hr class="report-line"/>
 	</div>
