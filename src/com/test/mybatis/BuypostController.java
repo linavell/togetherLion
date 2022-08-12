@@ -532,11 +532,6 @@ public class BuypostController
 		// 포인트 조회
 		int point = member.checkPoint((String)session.getAttribute("member_code"));
 		
-		
-		System.out.println(buypost.getTotal_price());
-		System.out.println(buypost.getGoods_num());
-		System.out.println(buypost.getPerson_price());
-		
 		// 1인당 가격 계산
 		int total_price = Integer.parseInt(buypost.getTotal_price());
 		int goods_num = Integer.parseInt(buypost.getGoods_num());
