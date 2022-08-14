@@ -4,8 +4,6 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
-	BuypostDTO buypost = (BuypostDTO)request.getAttribute("buypost");
-	request.setAttribute("buypost", buypost);
 %>
 <!DOCTYPE html>
 <html>
@@ -105,17 +103,9 @@ button.swal2-cancel.swal2-styled:focus {
 			    	if (password=='1234') {
 			    		
 			    		// 결제 처리 코드 작성!
+			    		$("#buypostValue").submit();
 			    		
 			    		
-			    		// 결제 완료 후, 띄울 알림창
-			    		Swal.fire({
-			    			icon: 'success',
-			    			text: '결제가 완료되었습니다.',
-			    			confirmButtonText: '확인'
-			    		}).then(() => {
-			    			opener.parent.location.reload();
-	      			    	window.close();
-	      			    });
 			    	}else {
 			    		Swal.fire({
 			    			icon: 'error',
@@ -143,7 +133,21 @@ button.swal2-cancel.swal2-styled:focus {
 	이 팝업창을 호출한 부모창이 buyPostInsertForm.jsp 인지, buyPostArticle.jsp를 이용해서 
 	아래에서 보여지는 내용 다르게 처리 
 -->
- 
+
+	<!-- 받아온 buypost 를 다시 넘겨주기 위해.. 이렇게 처리 -->
+	<form id="buypostValue" action="<%=cp%>/buypostinsert.lion" method="post">
+		<input type="hidden" name="title" value="${buypost.title }">
+		<input type="hidden" name="sub_cate_code" value="${buypost.sub_cate_code }">
+		<input type="hidden" name="url" value="${buypost.url }">
+		<input type="hidden" name="expiration_datetime" value="${buypost.expiration_datetime }">
+		<input type="hidden" name="total_price" value="${buypost.total_price }">
+		<input type="hidden" name="goods_num" value="${buypost.goods_num }">
+		<input type="hidden" name="deadline" value="${buypost.deadline }">
+		<input type="hidden" name="trade_datetime" value="${buypost.trade_datetime }">
+		<input type="hidden" name="content" value="${buypost.content }">
+		<input type="hidden" name="buy_number" value="${buypost.buy_number }">
+	</form>
+ 	<input type="hidden" class="buypostValue" value="${buypost }">
 	<div class="report-container">
 		<div class="report-title">
 			<c:choose>

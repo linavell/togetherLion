@@ -503,25 +503,9 @@ public class BuypostController
 	}
 	
 	
-	// 공동구매 게시물 Insert
-	@RequestMapping(value="/buypostinsert.lion", method = RequestMethod.POST)
-	public String insertBuypost(BuypostDTO buypost, HttpServletRequest request)
-	{
-		IBuypostDAO dao = sqlSession.getMapper(IBuypostDAO.class);
-		
-		// 로그인 정보 얻어오기
-		HttpSession session = request.getSession();
-		
-		buypost.setMember_code((String)session.getAttribute("member_code"));
-		
-		dao.insertBuypost(buypost);
-		
-		return "/main.lion";
-	}
-	
-	// 공동구매 게시물 작성 시 포인트 결제
-	@RequestMapping(value="/buypostinsertpay.lion")
-	public String payPoint(BuypostDTO buypost, HttpServletRequest request, Model model)
+	// 공동구매 게시물 작성 시 포인트 결제페이지
+	@RequestMapping(value="/buypostinsertpay.lion", method = RequestMethod.POST)
+	public String payPage(BuypostDTO buypost, HttpServletRequest request, Model model)
 	{
 		
 		IMemberDAO member = sqlSession.getMapper(IMemberDAO.class);
@@ -548,6 +532,23 @@ public class BuypostController
 		model.addAttribute("buypost", buypost);
 		
 		return "/WEB-INF/view/user/user_buypost_pay_popup.jsp";
+	}
+	
+	
+	// 결제 (공동구매 게시물 insert, 결제 insert, 참여자 insert)
+	@RequestMapping(value="/buypostinsert.lion", method = RequestMethod.POST)
+	public String pay(BuypostDTO buypost, HttpServletRequest request)
+	{
+		IBuypostDAO dao = sqlSession.getMapper(IBuypostDAO.class);			
+		
+		// 로그인 정보 얻어오기 
+		HttpSession session = request.getSession();
+		
+		buypost.setMember_code((String)session.getAttribute("member_code"));
+		
+		dao.insertBuypost(buypost);	// 공구 게시물 작성 메소드 호출
+		
+		return "/WEB-INF/view/user/user_buypost_pay_popup_alert.jsp";
 	}
 	
 	
