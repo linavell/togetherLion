@@ -16,15 +16,5 @@
 - 완료된 공동구매는 **매너/비매너평가**를 진행할 수 있습니다. 매너/비매너평가 결과는 회원의 매너지수에 반영됩니다.
 - 마이페이지에서 진행/침여한 공동구매 목록 확인, 포인트 충전 등을 할 수 있습니다.
 
-## 🥞 Member Info.
-| Member | e-mail |
-| ----------- | ----------- |
-| 김정용(팀장) | cin03023@gmail.com |
-| 신시은 | 1031cory@naver.com |
-| 우수정 | crystalline0329@naver.com|
-| 이시우 | siwooeel@gmail.com |
-| 이아린 | linavely99@gmail.com |
-| 정은정 | kreunjung.jung@gmail.com |
-
 ## 👀 WIKI 
 [같이사자 WIKI 보러가기](https://github.com/SISTTEAMF3/FinalProject_togetherlion/wiki)
