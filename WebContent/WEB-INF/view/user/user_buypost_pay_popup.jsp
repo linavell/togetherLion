@@ -102,9 +102,7 @@ button.swal2-cancel.swal2-styled:focus {
 			    if (password) {
 			    	if (password=='1234') {
 			    		
-			    		// 결제 처리 코드 작성!
 			    		$("#buypostValue").submit();
-			    		
 			    		
 			    	}else {
 			    		Swal.fire({
@@ -147,7 +145,7 @@ button.swal2-cancel.swal2-styled:focus {
 		<input type="hidden" name="content" value="${buypost.content }">
 		<input type="hidden" name="buy_number" value="${buypost.buy_number }">
 	</form>
- 	<input type="hidden" class="buypostValue" value="${buypost }">
+
 	<div class="report-container">
 		<div class="report-title">
 			<c:choose>
